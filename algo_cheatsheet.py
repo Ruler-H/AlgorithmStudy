@@ -27,6 +27,7 @@ def minimal_check(candi_list, relation):
         를 Return
     '''
     for i in candi_list:
+        
         is_contain = True
         for j in i:
             if j not in relation:
