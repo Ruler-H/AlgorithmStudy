@@ -1,12 +1,10 @@
-def factorial(n):
+def factorial(num):
     '''
-        팩토리얼 구하는 함수
-        n = 구하려는 n!
+    팩토리얼 구하는 함수
     '''
     factorial_num = 1
-    for i in range(2, n+1):
+    for i in range(2, num+1):
         factorial_num *= i
-    
     return factorial_num
 
 def unique_check(relation):
@@ -27,7 +25,6 @@ def minimal_check(candi_list, relation):
         를 Return
     '''
     for i in candi_list:
-        
         is_contain = True
         for j in i:
             if j not in relation:
@@ -36,3 +33,41 @@ def minimal_check(candi_list, relation):
         if is_contain:
             return False
     return True
+
+class TrieNode:
+    '''Trie 자료구조에서 사용되는 Node'''
+    def __init__(self, data):
+        self.data = data
+        self.children = {}
+        self.length = []
+
+class Trie:
+    '''Trie 자료구조'''
+    def __init__(self):
+        self.head = TrieNode(None)
+
+    def insert(self, word):
+        '''Trie 자료구조에 String Data를 삽입'''
+        cur_node = self.head
+        word_length = len(word)
+        for w in word:
+            cur_node.length.append(word_length)
+            if w not in cur_node.children:
+                cur_node.children[w] = TrieNode(None)
+            cur_node = cur_node.children[w]
+        cur_node.data = word
+
+    def search(self, query):
+        '''Trie 자료구조 내에 해당 query 조건에 맞는 데이터의 수를 반환'''
+        cur_node = self.head
+        for q in query:
+            if q == '?':
+                return cur_node.length.count(len(query))
+            elif q not in cur_node.children:
+                return 0
+            else:
+                cur_node = cur_node.children[q]
+        if cur_node.data:
+            return 1
+        else:
+            return 0
