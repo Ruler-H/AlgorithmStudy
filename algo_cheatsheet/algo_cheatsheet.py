@@ -1,3 +1,4 @@
+
 def factorial(num):
     '''
     팩토리얼 구하는 함수
